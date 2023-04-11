@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"runtime"
 )
 
 func main() {
@@ -12,8 +13,20 @@ func main() {
 		// Get the image filename from the URL path
 		imageName := filepath.Base(r.URL.Path)
 
+		_, filename, _, ok := runtime.Caller(0)
+		if !ok {
+			http.Error(w, "err.Error()", http.StatusInternalServerError)
+			return
+		}
+		dir := filepath.Dir(filename)
+		absPath, err := filepath.Abs(dir)
+		if err != nil {
+			http.Error(w, "000000", http.StatusInternalServerError)
+			return
+		}
+
 		// Construct the full path to the image file
-		imagePath := filepath.Join("surf_pal_country_icons", imageName)
+		imagePath := filepath.Join(absPath, "surf_pal_country_icons", imageName)
 
 		// Open the image file
 		imgFile, err := os.Open(imagePath)
