@@ -18,7 +18,7 @@ func main() {
 		// Open the image file
 		imgFile, err := os.Open(imagePath)
 		if err != nil {
-			http.Error(w, "Image not found", http.StatusInternalServerError)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 		defer imgFile.Close()
