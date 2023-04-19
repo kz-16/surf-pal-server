@@ -26,7 +26,7 @@ func main() {
 		}
 
 		// Construct the full path to the image file
-		imagePath := filepath.Join(absPath, "surf_pal_country_icons", imageName)
+		imagePath := filepath.Join(absPath, "surf_pal_images", imageName)
 
 		// Open the image file
 		imgFile, err := os.Open(imagePath)
